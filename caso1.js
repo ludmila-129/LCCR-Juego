@@ -18,8 +18,8 @@ window.GAME_DATA = {
   caso: "Caso 1: El collar de Aurelia",
   estrellasMax: 10,
   personajes: {
-    lorenzo: { nombre: "Lorenzo", sprite: "assets/img/lorenzo.webp", lado: "left" },
-    concepcion: { nombre: "Concepción", sprite: "assets/img/concepcion.webp", lado: "right" },
+    lorenzo: { nombre: "Lorenzo", sprite: "lorenzo.webp", lado: "left" },
+    concepcion: { nombre: "Concepción", sprite: "concepcion.webp", lado: "right" },
     humberto: { nombre: "Humberto Carrizo", sprite: null, lado: "center" },
   },
   beats: [
