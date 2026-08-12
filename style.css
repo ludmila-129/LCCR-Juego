@@ -1,0 +1,321 @@
+/* =========================================================
+   LCCR — Lorenzo y Concepción, Casos Resueltos
+   Paleta: carpeta de expediente policial, tonos sepia/beige
+   ========================================================= */
+
+:root {
+  --paper:        #EFE3C4;  /* carpeta manila */
+  --paper-dark:   #E2CE9C;  /* pestaña / panel secundario */
+  --paper-deep:   #D8C08A;  /* bordes, sombras suaves */
+  --ink:          #3A2C1D;  /* texto principal */
+  --ink-soft:     #6E5C43;  /* narración, texto secundario */
+  --stamp-red:    #8C3229;  /* acento — sello, estrellas */
+  --stamp-red-dk: #6E271F;
+  --line:         #B9A47B;  /* líneas finas */
+
+  --font-display: 'Special Elite', 'Courier New', monospace;
+  --font-body:    'Zilla Slab', Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top left, rgba(255,255,255,0.25), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0 2px, transparent 2px 4px),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Encabezado tipo carpeta ---------- */
+
+#case-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px 20px 0 0;
+  z-index: 20;
+}
+
+.case-tab {
+  background: var(--paper-dark);
+  border: 1px solid var(--line);
+  border-top: none;
+  padding: 8px 22px 10px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.star-stamp {
+  font-family: var(--font-display);
+  color: var(--stamp-red);
+  border: 3px solid var(--stamp-red);
+  border-radius: 50%;
+  width: 74px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transform: rotate(-8deg);
+  opacity: 0.88;
+  font-size: 0.95rem;
+  background: rgba(255,255,255,0.15);
+  margin: 0 20px 0 0;
+  flex-shrink: 0;
+}
+.star-stamp__icon { font-size: 1rem; margin-right: 1px; }
+.star-stamp__max { font-size: 0.65rem; opacity: 0.8; }
+
+/* ---------- Tarjeta de transición de escena ---------- */
+
+#title-card {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fade-in 0.4s ease;
+}
+
+#title-card__eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stamp-red);
+  font-size: 0.8rem;
+  margin: 0 0 6px;
+}
+
+#title-card__titulo {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+
+#title-card__subtitulo {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  margin: 0 0 34px;
+}
+
+#title-card::after {
+  content: "Toca para continuar";
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  opacity: 0.7;
+}
+
+/* ---------- Escenario / sprites ---------- */
+
+#stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 4vw;
+  overflow: hidden;
+}
+
+.sprite {
+  height: 78vh;
+  max-height: 640px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,0.25));
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.sprite--left  { transform-origin: bottom left; }
+.sprite--right { transform-origin: bottom right; }
+
+.placeholder-sprite {
+  height: 45vh;
+  max-height: 380px;
+  width: 220px;
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  background: var(--paper-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.placeholder-sprite::after {
+  content: "sin retrato";
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.hidden { display: none !important; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Nota del narrador (tarjeta pedagógica) ---------- */
+
+#nota-card {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%) rotate(-1.5deg);
+  z-index: 25;
+  width: min(90vw, 560px);
+  background: #F7EFD4;
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--stamp-red);
+  padding: 18px 22px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.nota-card__label {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stamp-red);
+}
+
+#nota-card__text {
+  margin: 0 0 14px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* ---------- Caja de diálogo ---------- */
+
+#dialogue-box {
+  position: relative;
+  z-index: 20;
+  margin: 0 4vw 4vh;
+  background: var(--paper-dark);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 22px 26px 18px;
+  min-height: 120px;
+  box-shadow: 0 8px 0 -4px rgba(0,0,0,0.08), 0 10px 18px rgba(0,0,0,0.18);
+}
+
+#speaker-tag {
+  position: absolute;
+  top: -18px;
+  left: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 6px 16px;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+#dialogue-text {
+  margin: 6px 0 4px;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--ink);
+  min-height: 3.4em;
+}
+
+.next-btn {
+  display: block;
+  margin-left: auto;
+  font-family: var(--font-display);
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.next-btn:hover { background: var(--ink); color: var(--paper); }
+.next-btn:focus-visible { outline: 3px solid var(--stamp-red); outline-offset: 2px; }
+
+/* ---------- Opciones (elecciones del jugador) ---------- */
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.choice-btn {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--stamp-red);
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.choice-btn:hover { transform: translateX(3px); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
+.choice-btn:focus-visible { outline: 3px solid var(--stamp-red); outline-offset: 2px; }
+
+/* ---------- Pantalla final ---------- */
+
+#end-card {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 8vw;
+}
+#end-card__text {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Accesibilidad / mobile ---------- */
+
+@media (max-width: 640px) {
+  .sprite { height: 55vh; }
+  #dialogue-text { font-size: 1rem; }
+  .star-stamp { width: 60px; height: 60px; font-size: 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

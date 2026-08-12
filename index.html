@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCCR — El collar de Aurelia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Zilla+Slab:wght@400;500;700&family=Zilla+Slab+Highlight&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- Encabezado tipo carpeta de expediente -->
+    <header id="case-header">
+      <div class="case-tab" id="case-title">LCCR</div>
+      <div class="star-stamp" id="star-stamp" aria-live="polite">
+        <span class="star-stamp__icon">★</span>
+        <span id="star-count">0</span><span class="star-stamp__max">/10</span>
+      </div>
+    </header>
+
+    <!-- Tarjeta de transición de escena (pantalla completa) -->
+    <div id="title-card" class="hidden">
+      <p id="title-card__eyebrow">Escena</p>
+      <h1 id="title-card__titulo"></h1>
+      <p id="title-card__subtitulo"></p>
+    </div>
+
+    <!-- Escenario: sprites de los personajes -->
+    <main id="stage">
+      <img id="sprite-left" class="sprite sprite--left hidden" alt="">
+      <div id="placeholder-center" class="placeholder-sprite hidden" aria-hidden="true"></div>
+      <img id="sprite-right" class="sprite sprite--right hidden" alt="">
+    </main>
+
+    <!-- Nota del narrador: recordatorio pedagógico -->
+    <div id="nota-card" class="hidden">
+      <p class="nota-card__label">Nota del narrador</p>
+      <p id="nota-card__text"></p>
+      <button id="nota-continuar" class="next-btn">Entendido →</button>
+    </div>
+
+    <!-- Caja de diálogo -->
+    <footer id="dialogue-box" class="hidden">
+      <div id="speaker-tag" class="hidden"></div>
+      <p id="dialogue-text"></p>
+      <div id="choices" class="choices hidden"></div>
+      <button id="next-btn" class="next-btn">Siguiente →</button>
+    </footer>
+
+    <!-- Pantalla de fin de prototipo -->
+    <div id="end-card" class="hidden">
+      <p id="end-card__text"></p>
+    </div>
+
+  </div>
+
+<script src="data/caso1.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
