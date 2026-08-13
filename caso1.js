@@ -4,19 +4,35 @@
 // de la historia: todo lo que ves acá se puede editar sin tocar el motor.
 //
 // Tipos de beat:
-//  - "titulo"    → tarjeta de transición de escena (pantalla completa)
+//  - "titulo"    → tarjeta de transición de escena (pantalla completa). Puede traer
+//                  "fondo": "archivo.webp" — ese fondo queda puesto hasta el próximo
+//                  beat "titulo" que traiga uno nuevo (o "fondo: null" para volver al
+//                  fondo neutro de papel).
 //  - "narracion" → texto del narrador (sin sprite)
 //  - "dialogo"   → línea de un personaje (con o sin sprite)
 //  - "nota"      → recordatorio pedagógico ("NOTA DEL NARRADOR") para que
 //                  el alumno tome apuntes en papel
 //  - "opciones"  → punto de decisión del jugador
 //
-// Personajes: "lorenzo" y "concepcion" tienen sprite (assets/img/*.webp).
-// Cualquier otro speaker (ej. "humberto") se muestra con una placa sin sprite.
+// Personajes: "lorenzo" y "concepcion" tienen sprite. Cualquier otro speaker
+// (ej. "humberto") se muestra con su propio sprite si lo tiene, o con una
+// placa sin sprite si no.
 
 window.GAME_DATA = {
   caso: "Caso 1: El collar de Aurelia",
   estrellasMax: 10,
+
+  // --- pantalla de inicio ---
+  tituloJuego: "LCCR — Lorenzo y Concepción, Casos Resueltos",
+  portada: "portada.webp",
+  instrucciones: [
+    "Sos parte del equipo de los detectives Lorenzo y Concepción. En cada caso vas a leer diálogos, escuchar testimonios y tomar decisiones para resolver el misterio.",
+    "Llevá tus propias notas en papel: fechas, horas y quién dijo qué. La cronología de los hechos es la clave para resolver cada caso.",
+    "El objetivo es sumar estrellas (⭐). Cuando tengas que elegir una opción, la elección acertada suma estrellas y avanza la historia.",
+    "Si elegís mal, el juego no termina: vas a poder tocar «Volver atrás» para reintentar la decisión, pero eso te cuesta 1 estrella. No hay límite de intentos.",
+    "En algunos momentos, Lorenzo y Concepción hacen un «contrapunto»: debaten entre ellos sobre las pistas. Ahí también vas a elegir qué argumento sostener.",
+  ],
+
   personajes: {
     lorenzo: { nombre: "Lorenzo", sprite: "lorenzo.webp", lado: "left" },
     concepcion: { nombre: "Concepción", sprite: "concepcion.webp", lado: "right" },
@@ -24,14 +40,14 @@ window.GAME_DATA = {
     rafael: { nombre: "Rafael", sprite: "rafael.webp", lado: "left" },
   },
   beats: [
-    { type: "titulo", titulo: "Prólogo", subtitulo: "Martes por la mañana" },
+    { type: "titulo", titulo: "Prólogo", subtitulo: "Martes por la mañana", fondo: null },
 
     { type: "narracion", text: "La historia comienza un martes por la mañana. Los detectives Lorenzo y Concepción reciben una llamada de la Guardia Civil. Una patrulla ha acudido a la casa de los Carrizo después de que Humberto Carrizo denunciara que el collar de su difunta esposa, Aurelia, había desaparecido la noche del lunes." },
     { type: "narracion", text: "No hay puertas forzadas ni ventanas rotas. Pero la vitrina en donde estaba el collar está abierta y nadie sabe cuándo desapareció." },
 
     { type: "nota", text: "Tomá nota en papel: ¿qué sabemos hasta ahora? Ej. «Habían varias personas en la propiedad…»" },
 
-    { type: "titulo", titulo: "Escena 1", subtitulo: "La Casa de los Carrizo — Exterior, martes, mañana" },
+    { type: "titulo", titulo: "Escena 1", subtitulo: "La Casa de los Carrizo — Exterior, martes, mañana", fondo: "fondo-escena1.webp" },
 
     { type: "narracion", text: "Una carretera estrecha atraviesa los campos de Castilla. Al fondo aparece una enorme casa de piedra rodeada de árboles. Un automóvil se detiene frente a una verja de hierro." },
     { type: "dialogo", speaker: "lorenzo", text: "Así que esta es la Casa de los Carrizo." },
@@ -73,7 +89,7 @@ window.GAME_DATA = {
 
     { type: "nota", text: "Tomá nota en papel: ¿quiénes estaban en la propiedad entre las 22:30 y las 8:00? ¿Alguna hora te llamó la atención?" },
 
-    { type: "titulo", titulo: "Escena 2", subtitulo: "El despacho de Humberto — Biblioteca, martes, mañana" },
+    { type: "titulo", titulo: "Escena 2", subtitulo: "El despacho de Humberto — Biblioteca, martes, mañana", fondo: "fondo-escena2.webp" },
 
     { type: "narracion", text: "Humberto conduce a Lorenzo y Concepción hasta una habitación llena de libros. Sobre el escritorio hay varias fotografías." },
     { type: "dialogo", speaker: "humberto", text: "El collar estaba aquí." },
@@ -110,7 +126,7 @@ window.GAME_DATA = {
 
     { type: "nota", text: "Tomá nota en papel: hay un niño que rompe los vidrios… ¿pudo haber entrado?" },
 
-    { type: "titulo", titulo: "Escena 3", subtitulo: "Rafael — Salón principal, martes, mediodía" },
+    { type: "titulo", titulo: "Escena 3", subtitulo: "Rafael — Salón principal, martes, mediodía", fondo: "fondo-escena3.webp" },
 
     { type: "narracion", text: "Un hombre joven, rubio y elegantemente vestido, está sentado en un sofá. Parece mucho menos preocupado que Humberto, su padre." },
     { type: "dialogo", speaker: "rafael", text: "¿Vosotros sois detectives…?" },

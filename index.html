@@ -13,8 +13,31 @@
 
   <div id="app">
 
+    <!-- Pantalla de inicio -->
+    <div id="start-screen">
+      <h1 id="start-screen__titulo"></h1>
+      <div id="start-screen__body">
+        <div id="start-screen__art">
+          <img id="start-screen__img" src="" alt="Lorenzo y Concepción">
+        </div>
+        <div id="start-screen__panel">
+          <button id="btn-jugar" class="menu-btn menu-btn--primary">Jugar</button>
+          <button id="btn-como-jugar" class="menu-btn">¿Cómo jugar?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de instrucciones -->
+    <div id="instrucciones-panel" class="hidden">
+      <div id="instrucciones-panel__card">
+        <p class="nota-card__label">Cómo jugar</p>
+        <ul id="instrucciones-lista"></ul>
+        <button id="btn-cerrar-instrucciones" class="next-btn">Volver →</button>
+      </div>
+    </div>
+
     <!-- Encabezado tipo carpeta de expediente -->
-    <header id="case-header">
+    <header id="case-header" class="hidden">
       <div class="case-tab" id="case-title">LCCR</div>
       <div class="star-stamp" id="star-stamp" aria-live="polite">
         <span class="star-stamp__icon">★</span>

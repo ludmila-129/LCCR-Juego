@@ -12,11 +12,21 @@
   let stars = 0;
   // pila de puntos de retorno para "volver atrás" en futuras escenas con opciones
   let volverAtrasTarget = null;
+  let fondoActual = null;
 
   // --- elementos del DOM ---
   const el = {
+    caseHeader: document.getElementById("case-header"),
     caseTitle: document.getElementById("case-title"),
     starCount: document.getElementById("star-count"),
+    startScreen: document.getElementById("start-screen"),
+    startTitulo: document.getElementById("start-screen__titulo"),
+    startImg: document.getElementById("start-screen__img"),
+    btnJugar: document.getElementById("btn-jugar"),
+    btnComoJugar: document.getElementById("btn-como-jugar"),
+    instruccionesPanel: document.getElementById("instrucciones-panel"),
+    instruccionesLista: document.getElementById("instrucciones-lista"),
+    btnCerrarInstrucciones: document.getElementById("btn-cerrar-instrucciones"),
     titleCard: document.getElementById("title-card"),
     titleCardTitulo: document.getElementById("title-card__titulo"),
     titleCardSubtitulo: document.getElementById("title-card__subtitulo"),
@@ -102,6 +112,13 @@
     el.titleCardTitulo.textContent = beat.titulo || "";
     el.titleCardSubtitulo.textContent = beat.subtitulo || "";
     el.titleCard.classList.remove("hidden");
+
+    if (beat.fondo !== undefined) setFondo(beat.fondo);
+  }
+
+  function setFondo(archivo) {
+    fondoActual = archivo;
+    el.stage.style.backgroundImage = archivo ? `url('${archivo}')` : "none";
   }
 
   function renderNarracion(beat) {
@@ -193,11 +210,34 @@
     renderBeat();
   }
 
-  // --- eventos ---
+  // --- eventos del juego ---
   el.nextBtn.addEventListener("click", advance);
   el.notaContinuar.addEventListener("click", advance);
   el.titleCard.addEventListener("click", advance);
 
-  // --- arranque ---
-  renderBeat();
+  // --- pantalla de inicio ---
+  el.startTitulo.textContent = data.tituloJuego || data.caso;
+  if (data.portada) el.startImg.src = data.portada;
+
+  el.btnJugar.addEventListener("click", () => {
+    el.startScreen.classList.add("hidden");
+    el.caseHeader.classList.remove("hidden");
+    renderBeat();
+  });
+
+  el.btnComoJugar.addEventListener("click", () => {
+    el.instruccionesLista.innerHTML = "";
+    (data.instrucciones || []).forEach((texto) => {
+      const li = document.createElement("li");
+      li.textContent = texto;
+      el.instruccionesLista.appendChild(li);
+    });
+    el.instruccionesPanel.classList.remove("hidden");
+  });
+
+  el.btnCerrarInstrucciones.addEventListener("click", () => {
+    el.instruccionesPanel.classList.add("hidden");
+  });
+
+  // --- arranque: se espera a que el jugador toque "Jugar" ---
 })();
