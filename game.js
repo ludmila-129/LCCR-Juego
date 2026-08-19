@@ -179,9 +179,9 @@
 
       el.nextBtn.textContent = "Volver atrás";
       el.nextBtn.classList.remove("hidden");
-      el.nextBtn.onclick = () => {
+      nextAction = () => {
         el.nextBtn.textContent = "Siguiente →";
-        el.nextBtn.onclick = advance;
+        nextAction = advance;
         index = idFor(volverAtrasTarget);
         renderBeat();
       };
@@ -211,7 +211,11 @@
   }
 
   // --- eventos del juego ---
-  el.nextBtn.addEventListener("click", advance);
+  // "nextAction" es la única función que ejecuta el botón "Siguiente" — así
+  // nunca queda más de un comportamiento enganchado al mismo click (esa
+  // mezcla fue la causa del bug que saltaba diálogos tras "Volver atrás").
+  let nextAction = advance;
+  el.nextBtn.addEventListener("click", () => nextAction());
   el.notaContinuar.addEventListener("click", advance);
   el.titleCard.addEventListener("click", advance);
 
